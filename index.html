@@ -6,8 +6,23 @@
 	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+  <style>
+    .button {
+      height: 40px;
+      font-size: 15px;
+      background-color: #0099ff;
+      border: 0;
+      border-radius: 2px;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
+<div class="button_set">
+  <button type="button" class="button each">async.each</button>
+  <button type="button" class="button map">async.map</button>
+  <button type="button" class="button parallel">async.parallel</button>
+</div>
 <script type="module" src="js/async.js"></script>
 </body>
 </html>
