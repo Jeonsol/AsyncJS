@@ -17,7 +17,7 @@ export function series(taskArray, callback) {
     if(err) error = err
     resultArray.push(result)
 
-    if(err || (!error && (taskArray.length === resultArray.length))) callback(err, resultArray)
+    if(err || (!error && (index === taskArray.length - 1))) callback(err, resultArray)
 
     index = index < taskArray.length - 1 ? index + 1 : null
 

@@ -3,24 +3,33 @@
 
 export function waterfall(taskArray, callback) {
 
-  "use strict";
-
   var error = null
-  var argumentsArray = []
+  var resultArgumentsArray = []
+  var index = 0
 
-  taskArray[0](function(err) {
-    for(var i = 1; i < arguments.length; i++) argumentsArray.push(arguments[i])
+  function getResult(i, argumentsArray, callbackFunc) {
+    if(error) return
 
-    taskArray[1](argumentsArray[0], argumentsArray[1], function(err) {
-      argumentsArray = []
-      for(var i = 1; i < arguments.length; i++) argumentsArray.push(arguments[i])
+    argumentsArray.push(callbackFunc)
+    taskArray[i].apply(null, argumentsArray)
+  }
+  function callbackFunc(err) {
+    if(err) error = err
 
-      taskArray[2](argumentsArray[0], argumentsArray[1], function(err) {
-        argumentsArray = []
-        for(var i = 1; i < arguments.length; i++) argumentsArray.push(arguments[i])
+    if(err || (!error && (index === taskArray.length - 1))) {
+      resultArgumentsArray.pop()
+      callback(err, resultArgumentsArray)
+    }
 
-        callback(error, argumentsArray)
-      })
-    })
-  })
+    index = index < taskArray.length - 1 ? index + 1 : null
+
+    resultArgumentsArray = []
+
+    if(index) {
+      for(var i = 1; i < arguments.length; i++) resultArgumentsArray.push(arguments[i])
+
+      getResult(index, resultArgumentsArray, callbackFunc)
+    }
+  }
+  getResult(index, resultArgumentsArray, callbackFunc)
 }

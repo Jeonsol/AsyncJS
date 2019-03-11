@@ -126,33 +126,39 @@ var arr  = [1,2,3,4,5];
  * waterfall 예제
  */
 
+// waterfall([
+//     function task1(callback){
+//       // 첫번째 작업 시작
+//       setTimeout(function(){
+//         console.log("task1");
+//         // 에러가 없으므로 null과 두번째 작업함수에서 전달받을 매개변수 1,2를 함께 리턴
+//         callback(null, 1, 2);
+//       },1000);
+//     },
+//     function task2(arg1, arg2, callback){
+//       // task1로부터 1,2를 전달받아 다시 덧셈과 곱셈을 하여 리턴
+//       setTimeout(function(){
+//         console.log("task2");
+//         callback(null, arg1 + arg2, arg1 * arg2);
+//       },3000);
+//     },
+//     function task3(arg1, arg2, callback){
+//       // task2로부터 3,2를 전달받아 배열에 넣고 callback함수로 매개변수로 담아 리턴
+//       setTimeout(function(){
+//         console.log("task3");
+//         var arr = [];
+//         arr.push(arg1);
+//         arr.push(arg2);
+//         callback(null, arr);
+//       },2000);
+//     }
+//   ],
+//   function(err,result){
+//     if(err){
+//       return console.log(err);
+//     }
+//     // task3으로부터 2개 원소가 있는 배열을 전달받음
+//     console.log(result);
+//   }
+// );
 
-waterfall([
-    function task1(callback){
-      // 첫번째 작업 시작
-      console.log("task1");
-      // 에러가 없으므로 null과 두번째 작업함수에서 전달받을 매개변수 1,2를 함께 리턴
-      callback(null, 1, 2);
-    },
-    function task2(arg1, arg2, callback){
-      // task1로부터 1,2를 전달받아 다시 덧셈과 곱셈을 하여 리턴
-      console.log("task2");
-      callback(null, arg1 + arg2, arg1 * arg2);
-    },
-    function task3(arg1, arg2, callback){
-      // task2로부터 3,2를 전달받아 배열에 넣고 callback함수로 매개변수로 담아 리턴
-      console.log("task3");
-      var arr = [];
-      arr.push(arg1);
-      arr.push(arg2);
-      callback(null, arr);
-    }
-  ],
-  function(err,result){
-    if(err){
-      return console.log(err);
-    }
-    // task3으로부터 2개 원소가 있는 배열을 전달받음
-    console.log(result);
-  }
-);

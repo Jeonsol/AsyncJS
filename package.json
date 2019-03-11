@@ -15,8 +15,8 @@
     "url": "https://github.com/Jeonsol/Async/issues"
   },
   "homepage": "https://github.com/Jeonsol/Async#readme",
-  "description": "",
   "dependencies": {
     "async": "^2.6.2"
-  }
+  },
+  "description": ""
 }
