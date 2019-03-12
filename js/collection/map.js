@@ -1,20 +1,22 @@
-// todo: 결과값 저장되는 순서 보장해야됨
-
 export function map(arr, iterator, callback) {
   var resultArray = new Array(arr.length)
   var error = null
+  var loopIndex = 0
 
   function getResult(callbackFunc) {
     for(var i = 0; i < arr.length; i++) {
-      iterator(arr[i], function (err, result){
-        callbackFunc(err, result)
-      })
+      (function(index) {
+        iterator(arr[index], function (err, result){
+          callbackFunc(err, result, index)
+        })
+      })(i)
     }
   }
-  getResult(function(err, result) {
+  getResult(function(err, result, index) {
+    loopIndex++
+
     if(err) error = err
     resultArray[index] = result
-
-    if(arr.length === resultArray.length) callback(error, resultArray)
+    if(arr.length === loopIndex) callback(error, resultArray)
   })
 }

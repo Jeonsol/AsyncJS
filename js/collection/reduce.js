@@ -1,5 +1,3 @@
-// todo: 결과값 저장되는 순서 보장해야됨
-
 export function reduce(arr, init, iterator, callback) {
   var error = null
   var memo = init
