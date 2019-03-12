@@ -1,5 +1,6 @@
 // todo: taskArray가 배열 또는 객체로 input
 // todo: resultArray가 taskArray의 타입과 같아야 됨
+// todo: 결과값 저장되는 순서 보장해야됨
 
 export function parallel(taskArray, callback) {
   var error = null

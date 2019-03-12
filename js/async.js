@@ -1,4 +1,7 @@
 import { each } from './collection/each.js'
+import { every } from './collection/every.js'
+import { filter } from './collection/filter.js'
+import { reduce } from './collection/reduce.js'
 import { map } from './collection/map.js'
 import { parallel } from './controlFlow/parallel.js'
 import { series } from './controlFlow/series.js'
@@ -36,21 +39,63 @@ function square(item, doneCallback){
 // })
 
 /**
+ * every 예제
+ */
+
+// every([4,2,8,16,19,20,44], function(number, callback) {
+//   if(number % 2 === 0) {
+//     callback(null, true);
+//   } else {
+//     callback(null, false);
+//   }
+// }, function(err, result) {
+//   console.log(err, result)
+// });
+
+/**
+ * filter 예제
+ */
+
+// filter([4,2,8,16,19,20,44], function(number, callback) {
+//   if(number % 2 === 0) {
+//     callback(null, true);
+//   } else {
+//     callback(null, false);
+//   }
+// }, function(err, result) {
+//   console.log(err, result)
+// });
+
+/**
+ * reduce 예제
+ */
+//
+// reduce([1,2,3], 1, function(memo, item, callback) {
+//   callback(null, memo * item)
+// }, function(err, result) {
+//   console.log(err,result)
+// });
+
+/**
  * map 예제
  */
 
 // map함수는 배열객체의 원소에 대해 반복함수를 수행하고 마지막으로 배열 결과 객체를 얻을수 있음.
 var arr  = [1,2,3,4,5];
 
-// map(arr,
-//   function(item, callback){   // 배열의 1~5까지 id와 uuid를 발급하여 키밸류 생성하여 콜백함수의 result로 리턴
-//     callback(null, {'id':item,'uuid':[Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]})
-//   },
-//   function(err,result){
-//     if(err) console.log(err);
-//     else console.log(result);
-//   }
-// );
+map(arr,
+  function(item, callback){
+  setTimeout(function() {
+    console.log("task" + item)
+    callback(null, {'id':item,'uuid':[Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1), Math.floor((Math.random() * 100) + 1)]})
+  }, 5000 - item*1000)
+  // 배열의 1~5까지 id와 uuid를 발급하여 키밸류 생성하여 콜백함수의 result로 리턴
+  },
+  function(err,result){
+    if(err) console.log(err);
+    else console.log(result);
+  }
+);
 
 /**
  * parallel 예제
@@ -103,7 +148,7 @@ var arr  = [1,2,3,4,5];
 //       setTimeout(function(){
 //         console.log("task2");
 //         // 콜백 함수로 에러로그와 result인 "one"을 전달하면 콜백함수는 이를 배열에 저장한다.
-//         callback(new Error("Error"),"two");
+//         callback(null, "two");
 //       }, 3000);
 //     },
 //     function task3(callback){
